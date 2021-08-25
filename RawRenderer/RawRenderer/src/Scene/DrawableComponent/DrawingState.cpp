@@ -1,22 +1,29 @@
 #include "DrawingState.h"
 
-
-
-RCommonPSOs RCommonPSOsManagerS::InitCommonPSOsImpl(RRootSignature& rootsignature, RShader& pixelshader)
+RPipelineStateGraphics RPSOFactory::GetGraphicsPSO(RRootSignature& RootSignature, RShader VertexShader, RShader PixelShader, CommonPipelineStates commonPipelineStates)
 {
-	RCommonPSOs outPSOs;
-	RCommonPSO::CommonPipelineStates PipelineState;
-	//PipelineState.RasterDesc.CullMode = D3D12_CULL_MODE_BACK;
-	//PipelineState.DepthStencilDesc.DepthEnable = FALSE;
-	PipelineState.DepthStencilDesc.DepthFunc = D3D12_COMPARISON_FUNC_LESS;
-	outPSOs.PSODefault.Create<RVertexComponentPositionOnly>(rootsignature, pixelshader, PipelineState);
-	//DrawingStateDefaultPositionOnly.Create<RVertexComponentPositionOnly>(rootsignature, pixelshader, PipelineState);
+	RPipelineStateGraphics PSO;
 
-	//DrawingStateDefaultTwoSided.Create<RVertexComponentDefault>(rootsignature, pixelshader, PipelineState);
-	//DrawingStateDefaultPositionOnlyTwoSided.Create<RVertexComponentPositionOnly>(rootsignature, pixelshader, PipelineState);
+	//1)Input 
+	PSO.SetRootSignature(RootSignature); //Based on Pass
 
-	//PipelineState.RasterDesc.FillMode = D3D12_FILL_MODE_WIREFRAME;
-	//DrawingStateDefaultWireframe.Create<RVertexComponentDefault>(rootsignature, pixelshader, PipelineState);
-	//DrawingStatePositionOnlyWireframe.Create<RVertexComponentPositionOnly>(rootsignature, pixelshader, PipelineState);
-	return outPSOs;
+										 //2)Geometry State
+	PSO.SetVertexShader(VertexShader.Get()); //Based on Mesh
+
+	PSO.SetInputLayout(RVertexComponentPositionOnly::NumAttributes, RVertexComponentPositionOnly::InputElementDesc);
+	PSO.SetPrimitiveTopologyType(commonPipelineStates.TopologyType);
+
+	PSO.SetDepthStencilState(commonPipelineStates.DepthStencilDesc);
+
+	//3)Material State
+	PSO.SetPixelShader(PixelShader.Get());
+	//commonPipelineStates.RasterDesc.CullMode = D3D12_CULL_MODE_NONE;
+	PSO.SetRasterizerState(commonPipelineStates.RasterDesc); //Based on Material;
+	PSO.SetBlendState(commonPipelineStates.BlendDesc); //Based on Material
+
+	PSO.SetRenderTargetFormat(RCommonGpuResourcesS::Get().SceneColor.GetFormat(), RCommonGpuResourcesS::Get().SceneDepth.GetFormat()); //RT
+
+	PSO.InitGetOrCreate();
+
+	return PSO;
 }

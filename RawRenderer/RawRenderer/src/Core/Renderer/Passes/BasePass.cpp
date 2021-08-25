@@ -33,7 +33,7 @@ void BasePassDrawInstancedMesh(RCommandListGraphics& CmdList, RDrawableMesh& dra
 	//CmdList.SetDynamicDescriptors(1, 0, 3, InstanceSRVs);
 	CmdList.SetBufferSRV(1, drawable.GpuData.VertexBufferRest);
 	CmdList.SetBufferSRV(2, drawable.GpuData.AllInstancesModelMatricesGPU);
-	CmdList.SetBufferSRV(3, drawable.GpuData.VertexBufferRest);
+	CmdList.SetBufferSRV(3, drawable.GpuData.AllInstancesIndicesToMaterialsGPU);
 
 	CmdList.SetConstants(5, 0, 0, 0, 0);
 

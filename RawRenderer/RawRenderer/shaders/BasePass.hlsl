@@ -106,10 +106,10 @@ float4 MainPS(Interpolators PSin) : SV_Target
 	//return InputTexture[MatDesc.TextureId].SampleLevel(DefaultSampler, PSin.TexCoord, 0);
 	return float4(MatDesc.Color.rgb * MatDesc.Color.a, 1.f);
 	//
-	if(val1)
-	{
-		clip(MatDesc.Color.r - 0.3);
-	}
+	// if(val1)
+	// {
+	// 	clip(MatDesc.Color.r - 0.3);
+	// }
 	// if(MatDesc.Type & MAT_TYPE_EMITTER)
 	// {
 	// 	return float4(MatDesc.Color.rgb * MatDesc.Color.a, 1.f);

@@ -63,7 +63,7 @@ public:
 	RBasePassVertexShader()
 	{
 		PushBackDefine({ "VERTEX_LAYOUT_POSITION", "1" });
-		CreateVS("shaders/BasePass.hlsl", "MainVS", "ps_5_1");
+		CreateVS("shaders/BasePass.hlsl", "MainVS", "vs_5_1");
 	}
 };
 class RBasePassPixelShader : public RShader 
