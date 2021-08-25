@@ -4,3 +4,5 @@ x64/
 *.dll
 .vs/
 assets/
+*.pdb
+*.exe
