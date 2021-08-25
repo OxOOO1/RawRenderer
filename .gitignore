@@ -1,0 +1,6 @@
+Debug/
+packages/
+x64/
+*.dll
+.vs/
+assets/

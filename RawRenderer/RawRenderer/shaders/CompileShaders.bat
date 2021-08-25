@@ -1,0 +1,1 @@
+dxc.exe /E "MainPS" /Vn "g_pModelViewerPS_SM6" /Fo "TriangleObjectFile.bin" /Zi /Fre "TriangleReflection" /Fd "debugInfo.pdb" /T ps_6_0  -Qstrip_debug /Fh "TrianglePSMain.h" /nologo Triangle.hlsl
